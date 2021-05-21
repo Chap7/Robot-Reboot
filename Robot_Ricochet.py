@@ -50,7 +50,6 @@ def check_ball(x, y, balls):
         if (x, y) == ball["position"]:
             return True
     return False
-    
 
 def create_balls(colors):
     balls = []
@@ -79,6 +78,33 @@ def show_balls(tableau, balls):
 
 def erase_balls(tableau, i, j): # effacer la position 
     canvas.create_oval((i * cote)+5, (j * cote)+5, (cote * (i + 1))-5, (cote * (j + 1))-5, fill="white", outline = "white")
+
+#creation des rectangles
+
+color_rectangle_blue = ["blue"]
+def create_rectangles(color_rectangle_blue):
+    rectangles = []     
+    n_rectangles = len(color_rectangle_blue)
+    for i in range(n_rectangles):
+        x,y = random.randint(0, NB_LINE-1), random.randint(0, NB_LINE-1)
+        print("CREATED")
+        while (check_ball(x, y, rectangles)):
+            print("CHECKED")
+            x,y = random.randint(0, NB_LINE-1), random.randint(0, NB_LINE-1)
+        rectangles.append({
+            "position": (x,y),
+            "color": color_rectangle_blue [i]
+        })
+        print("postion = ", x, y, " color = ", color_rectangle_blue[i])
+    return rectangles
+
+rectangles = create_rectangles(color_rectangle_blue)
+
+def show_rectangles(tableau, rectangles):
+    for rectangles in rectangles :
+        i,j = rectangles["position"]
+        color = rectangles["color"]
+        canvas.create_rectangle((i * cote)+3, (j * cote)+3, (cote * (i + 1))-3, (cote * (j + 1))-3, fill=color, outline = "white")
 
 
 #coordonée de chaque cases
@@ -268,5 +294,6 @@ tableau_coord = placer_case(tableau)
 quadrillage()
 creer_mur(tableau)
 show_balls(tableau, balls)
+show_rectangles(tableau, rectangles)
 canvas.pack()
 root.mainloop()
