@@ -3,7 +3,6 @@ import tkinter as tk
 
 root = tk.Tk()
 
-
 """ 
 affichage mal fait (14 au lieu de 15=)
 done - lors de la génération des boules il ne faut pas qu'elles aillent dans le centre de la map
@@ -12,7 +11,7 @@ done - Même quand les boules sont bien sélectionnés et update. l'info ne pass
 done - x, y, i, j sont inversés, il faut corrigé ça
 done - les boules sont modifiés dans le backend mais le front ne s'update pas
 certains murs sont traversés uniquement de bas en haut et de gauche à droite
-done - les boules effacés le sont mal. Il faut une autre fonction
+les boules effacés le sont mal. Il faut une autre fonction
 """
 
 #CREATION CANVAS
@@ -22,6 +21,8 @@ cote = 44 #modif temporaire pour debug
 NB_COL = 16
 NB_LINE = 16
 selected_ball = None
+goal_pos = [(1, 3), (4, 1), (5,5),(9,2),(13,1),(3,6),(4,9),(1,10),(2,14),(4,12),(6,13),(10,12),(12,13),(11,10),(13,11),(14,6),(9,2),(10,6)]
+goal_act = [-1, -1, ""]
 canvas = tk.Canvas(bg = "white", width = LARGEUR, height = HAUTEUR)
 # colonne 10, 6/7 11/12
                                                     #0 = haut, 1 = bas, 2 = droite, 4 = gauche                                                              #0 = haut, 1 = bas, 2 = droite, 4 = gauche                      #0 = haut, 1 = bas, 2 = droite, 4 = gauche                          #0 = haut, 1 = bas, 2 = droite, 4 = gauche          #0 = haut, 1 = bas, 2 = droite, 4 = gauche                                  #0 = haut, 1 = bas, 2 = droite, 4 = gauche
@@ -35,10 +36,10 @@ tableau = [[[True,False,False,True],[True,False,True,False],[True,False,False,Tr
             [[True,False,False,True],[False,False,False,False],[False,False,False,False],[False,True,True,False],[False,False,False,True],[False,False,False,False],[False,False,False,False],[False,True,False,False],[False,True,False,False],[False,False,False,False],[False,True,True,False],[False,False,False,True],[False,False,False,False],[False,False,True,False],[False,True,False,True],[False,False,True,False]],
             [[False,False,False,True],[False,False,False,False],[False,False,False,False],[True,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False],[False,False,False,False],[False,False,True,False],[False,False,False,True],[True,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
             [[False,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False],[False,True,False,False],[False,True,True,False],[False,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
-            [[False,False,False,True],[False,True,False,False],[False,False,False,False],[False,False,True,False],[False,True,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[True,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
+            [[False,False,False,True],[False,True,False,False],[False,False,False,False],[False,False,True,False],[False,True,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
             [[False,False,False,True],[True,False,True,False],[False,False,False,True],[False,False,False,False],[True,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False],[True,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
             [[False,True,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,False,False],[False,False,False,False],[False,False,True,False],[False,True,False,True],[False,False,False,False],[False,True,True,False]],
-            [[True,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[True,False,True,False],[False,False,False,True],[False,True,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[True,False,True,False],[False,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[True,False,True,False]],
+            [[True,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[True,False,True,False],[False,False,False,False],[False,True,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[True,False,True,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
             [[False,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False],[True,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,True,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
             [[False,False,False,True],[False,False,False,False],[False,True,True,False],[False,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
             [[False,True,False,True],[False,True,False,False],[True,True,False,False],[False,True,True,False],[False,True,False,True],[False,True,False,False],[False,True,False,False],[False,True,False,False],[False,True,False,False],[False,True,True,False],[False,True,False,True],[False,True,False,False],[False,True,False,False],[False,True,False,False],[False,True,False,False],[False,True,True,False]]]
@@ -80,6 +81,82 @@ def show_balls(tableau, balls):
 def erase_balls(tableau, i, j): # effacer la position 
     canvas.create_oval((i * cote)+5, (j * cote)+5, (cote * (i + 1))-5, (cote * (j + 1))-5, fill="white", outline = "white")
 
+#creation des rectangles
+
+color_rectangle_blue = ["blue"]
+
+def pick_goal(): #voir comment random marche
+    global goal_act
+    global colors
+    global goal_pos
+
+    x,y = random.choices(goal_pos)[0]
+    color = random.choices(colors)
+    goal_act[0] = x
+    goal_act[1] = y
+    goal_act[2] = color
+
+
+def show_goal():
+    global goal_act
+    print("SHOW GOAL ")
+    i = goal_act[0]
+    j = goal_act[1]
+    color = goal_act[2]
+    canvas.create_rectangle((i * cote)+3, (j * cote)+3, (cote * (i + 1))-3, (cote * (j + 1))-3, fill=color, outline = "white")
+
+def erase_goal():
+    global goal_act
+    i = goal_act[0]
+    j = goal_act[1]
+    canvas.create_rectangle((i * cote)+3, (j * cote)+3, (cote * (i + 1))-3, (cote * (j + 1))-3, fill="white", outline = "white")
+
+def reset(tableau):
+    global balls
+    #efface les boules
+    for ball in balls:
+        erase_balls(tableau, ball["position"][0], ball["position"][1])
+    #efface le goal
+    erase_goal()
+    #recrée les boules
+    balls = create_balls(colors)
+    #affiche les boules:
+    show_balls(tableau, balls)
+    #recrée le goal
+    pick_goal()
+    show_goal()
+    
+
+
+        
+
+"""
+def create_rectangles(color_rectangle_blue):
+    rectangles = []     
+    n_rectangles = len(color_rectangle_blue)
+    for i in range(n_rectangles):
+        x,y = random.randint(0, NB_LINE-1), random.randint(0, NB_LINE-1)
+        print("CREATED")
+        while (check_ball(x, y, rectangles)):
+            print("CHECKED")
+            x,y = random.randint(0, NB_LINE-1), random.randint(0, NB_LINE-1)
+        rectangles.append({
+            "position": (x,y),
+            "color": color_rectangle_blue [i]
+        })
+        print("postion = ", x, y, " color = ", color_rectangle_blue[i])
+    return rectangles
+
+rectangles = create_rectangles(color_rectangle_blue)
+
+
+def show_rectangles(tableau, rectangles):
+    for rectangle in rectangles :
+        i,j = rectangles["position"]
+        color = rectangles["color"]
+        canvas.create_rectangle((i * cote)+3, (j * cote)+3, (cote * (i + 1))-3, (cote * (j + 1))-3, fill=color, outline = "white")
+"""
+        
 
 #coordonée de chaque cases
 def coord_carre(y, x): #inverse 
@@ -129,7 +206,6 @@ def creer_mur(tableau): # je dois check canvas create line, a quoi sert coord po
     return None
 
 # Gestion des events
-
 
 """
 def move_to_obstacle(ball_i, ball_j, symbole, direction):
@@ -206,7 +282,6 @@ def move_down(ball_y, ball_x): #inverse
         print(y)
     return y, x
 
-
 def move_ball(selected_ball, symbole): #inverse
     global balls
     x,y = selected_ball["position"]
@@ -229,7 +304,6 @@ def move_ball(selected_ball, symbole): #inverse
     erase_balls(tableau, x, y)
     show_balls(tableau, balls)
 
-
 # Gestion des mouvements
 def handle_keypress(event):
     global selected_ball
@@ -251,12 +325,17 @@ def get_clicked_ball(event_x, event_y): #inverse
     print("None")
     return None
 
+def handle_reset(event_x, event_y):
+    if (event_x > 6*cote and event_x < 9*cote) and (event_y > 6*cote and event_y < 9*cote):
+        reset(tableau)
+
 # Gestion des selections
 def handle_click(event): #ok
     global selected_ball
     print(event)
     event_x, event_y = event.x, event.y
     selected_ball = get_clicked_ball(event_x, event_y)
+    handle_reset(event_x, event_y)
     print(selected_ball)
 
 # Bind une touche event pour handle_keypress()
@@ -268,5 +347,8 @@ tableau_coord = placer_case(tableau)
 quadrillage()
 creer_mur(tableau)
 show_balls(tableau, balls)
+pick_goal()
+show_goal()
+#show_rectangles(tableau, rectangles)
 canvas.pack()
 root.mainloop()
