@@ -21,6 +21,7 @@ cote = 44 #modif temporaire pour debug
 NB_COL = 16
 NB_LINE = 16
 selected_ball = None
+compteur = 0
 goal_pos = [(1, 3), (4, 1), (5,5),(9,2),(13,1),(3,6),(4,9),(1,10),(2,14),(4,12),(6,13),(10,12),(12,13),(11,10),(13,11),(14,6),(9,2),(10,6)]
 goal_act = [-1, -1, ""]
 canvas = tk.Canvas(bg = "white", width = LARGEUR, height = HAUTEUR)
@@ -39,7 +40,7 @@ tableau = [[[True,False,False,True],[True,False,True,False],[True,False,False,Tr
             [[False,False,False,True],[False,True,False,False],[False,False,False,False],[False,False,True,False],[False,True,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
             [[False,False,False,True],[True,False,True,False],[False,False,False,True],[False,False,False,False],[True,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False],[True,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
             [[False,True,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,False,False],[False,False,False,False],[False,False,True,False],[False,True,False,True],[False,False,False,False],[False,True,True,False]],
-            [[True,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[True,False,True,False],[False,False,False,False],[False,True,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[True,False,True,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
+            [[True,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[True,False,True,False],[False,False,False,True],[False,True,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[True,False,True,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
             [[False,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False],[True,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,True,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
             [[False,False,False,True],[False,False,False,False],[False,True,True,False],[False,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
             [[False,True,False,True],[False,True,False,False],[True,True,False,False],[False,True,True,False],[False,True,False,True],[False,True,False,False],[False,True,False,False],[False,True,False,False],[False,True,False,False],[False,True,True,False],[False,True,False,True],[False,True,False,False],[False,True,False,False],[False,True,False,False],[False,True,False,False],[False,True,True,False]]]
@@ -80,6 +81,8 @@ def show_balls(tableau, balls):
 
 def erase_balls(tableau, i, j): # effacer la position 
     canvas.create_oval((i * cote)+5, (j * cote)+5, (cote * (i + 1))-5, (cote * (j + 1))-5, fill="white", outline = "white")
+    if i == goal_act[0] and j == goal_act[1]:
+        canvas.create_rectangle((i * cote)+3, (j * cote)+3, (cote * (i + 1))-3, (cote * (j + 1))-3, fill=goal_act[2][0], outline = "white")
 
 #creation des rectangles
 
@@ -113,6 +116,7 @@ def erase_goal():
 
 def reset(tableau):
     global balls
+    global compteur
     #efface les boules
     for ball in balls:
         erase_balls(tableau, ball["position"][0], ball["position"][1])
@@ -125,6 +129,7 @@ def reset(tableau):
     #recrée le goal
     pick_goal()
     show_goal()
+    compteur = 0
     
 
 
@@ -282,8 +287,24 @@ def move_down(ball_y, ball_x): #inverse
         print(y)
     return y, x
 
+def win(selected_ball, nx, ny):
+    print("WIN")
+    print(selected_ball["color"])
+    print(selected_ball["position"])
+    print(goal_act)
+    if selected_ball["color"] != goal_act[2][0]:
+        print("color check Flase")
+        return False
+    if (nx, ny) != (goal_act[0], goal_act[1]):
+        print("pos check False")
+        return False
+    return True
+
 def move_ball(selected_ball, symbole): #inverse
     global balls
+    global compteur
+
+    compteur += 1
     x,y = selected_ball["position"]
     # On definit la direction
     if symbole == "Right":
@@ -303,6 +324,13 @@ def move_ball(selected_ball, symbole): #inverse
     #print("balls[selected_ball_index] = ", balls[selected_ball_index])
     erase_balls(tableau, x, y)
     show_balls(tableau, balls)
+    print("compteur = ", compteur)
+    if win(selected_ball, nx, ny):
+        #fonction qui affiche la victoire
+        print("GG")
+        print(compteur)
+        reset(tableau)
+        return
 
 # Gestion des mouvements
 def handle_keypress(event):
