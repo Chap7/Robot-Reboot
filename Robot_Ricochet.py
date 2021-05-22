@@ -12,7 +12,7 @@ done - Même quand les boules sont bien sélectionnés et update. l'info ne pass
 done - x, y, i, j sont inversés, il faut corrigé ça
 done - les boules sont modifiés dans le backend mais le front ne s'update pas
 certains murs sont traversés uniquement de bas en haut et de gauche à droite
-les boules effacés le sont mal. Il faut une autre fonction
+done - les boules effacés le sont mal. Il faut une autre fonction
 """
 
 #CREATION CANVAS
