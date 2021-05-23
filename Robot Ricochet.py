@@ -1,6 +1,6 @@
 import random
 import tkinter as tk
-
+from tkinter import PhotoImage
 root = tk.Tk()
 
 """ 
@@ -369,6 +369,14 @@ def handle_click(event): #ok
 # Bind une touche event pour handle_keypress()
 root.bind("<Key>", handle_keypress)
 root.bind("<Button-1>", handle_click)
+
+
+
+canvas = tk.Canvas(bg = "white", width = LARGEUR, height = HAUTEUR)
+img = PhotoImage(file='restart.ppm')
+canvas.create_image(HAUTEUR/2, LARGEUR/2, image=img)
+
+
 
 canvas.create_rectangle(850, 250, 1470, 600, width = 15)
 tableau_coord = placer_case(tableau)
