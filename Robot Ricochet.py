@@ -15,8 +15,14 @@ les boules effacés le sont mal. Il faut une autre fonction
 """
 
 #CREATION CANVAS
+
+#grille
 HAUTEUR = 780
 LARGEUR = 780
+#canva
+HAUTEUR1 = 1500
+LARGEUR1 = 1500
+
 cote = 44 #modif temporaire pour debug
 NB_COL = 16
 NB_LINE = 16
@@ -24,7 +30,10 @@ selected_ball = None
 compteur = 0
 goal_pos = [(1, 3), (4, 1), (5,5),(9,2),(13,1),(3,6),(4,9),(1,10),(2,14),(4,12),(6,13),(10,12),(12,13),(11,10),(13,11),(14,6),(9,2),(10,6)]
 goal_act = [-1, -1, ""]
-canvas = tk.Canvas(bg = "white", width = LARGEUR, height = HAUTEUR)
+canvas = tk.Canvas(bg = "white", width = LARGEUR1, height = HAUTEUR1)
+
+
+root.title("Robot Reebot")
 # colonne 10, 6/7 11/12
                                                     #0 = haut, 1 = bas, 2 = droite, 4 = gauche                                                              #0 = haut, 1 = bas, 2 = droite, 4 = gauche                      #0 = haut, 1 = bas, 2 = droite, 4 = gauche                          #0 = haut, 1 = bas, 2 = droite, 4 = gauche          #0 = haut, 1 = bas, 2 = droite, 4 = gauche                                  #0 = haut, 1 = bas, 2 = droite, 4 = gauche
 #creation d'un tableau
@@ -371,10 +380,11 @@ root.bind("<Key>", handle_keypress)
 root.bind("<Button-1>", handle_click)
 
 
-
-canvas = tk.Canvas(bg = "white", width = LARGEUR, height = HAUTEUR)
 img = PhotoImage(file='restart.ppm')
 canvas.create_image(352, 352, image=img)
+
+img1 = PhotoImage(file='yellowbird.ppm')
+canvas.create_image(950, 550, image=img1)
 
 
 

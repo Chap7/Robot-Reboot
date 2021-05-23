@@ -14,14 +14,21 @@ certains murs sont traversés uniquement de bas en haut et de gauche à droite
 les boules effacés le sont mal. Il faut une autre fonction
 """
 
-#CREATION CANVAS
+#CREATION QUADRILLAGE
 HAUTEUR = 780
 LARGEUR = 780
+
+#CREATION CANVAS    
+HAUTEUR1 = 1500
+LARGEUR1 = 1500
+
 cote = 44 #modif temporaire pour debug
 NB_COL = 16
 NB_LINE = 16
 selected_ball = None
-canvas = tk.Canvas(bg = "white", width = LARGEUR, height = HAUTEUR)
+canvas = tk.Canvas(root, bg = "white", width = LARGEUR1, height = HAUTEUR1)
+root.title("Robot Reebot")
+
 # colonne 10, 6/7 11/12
                                                     #0 = haut, 1 = bas, 2 = droite, 4 = gauche                                                              #0 = haut, 1 = bas, 2 = droite, 4 = gauche                      #0 = haut, 1 = bas, 2 = droite, 4 = gauche                          #0 = haut, 1 = bas, 2 = droite, 4 = gauche          #0 = haut, 1 = bas, 2 = droite, 4 = gauche                                  #0 = haut, 1 = bas, 2 = droite, 4 = gauche
 #creation d'un tableau
