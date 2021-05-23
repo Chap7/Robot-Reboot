@@ -374,7 +374,7 @@ root.bind("<Button-1>", handle_click)
 
 canvas = tk.Canvas(bg = "white", width = LARGEUR, height = HAUTEUR)
 img = PhotoImage(file='restart.ppm')
-canvas.create_image(353, 353, image=img)
+canvas.create_image(352, 352, image=img)
 
 
 
