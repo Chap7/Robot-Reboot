@@ -366,7 +366,7 @@ root.bind("<Button-1>", handle_click)
 
 #Historique de déplacement
 
-canvas.create_rectangle(850, 250, 1500, 1000, width = 15, outline = "red")
+canvas.create_rectangle(850, 250, 1300, 1000, width = 15, outline = "red")
 
 fleche_img_liste = {
     "bd": PhotoImage(file='flechebleu_bas.ppm'),
