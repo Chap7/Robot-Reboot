@@ -402,6 +402,7 @@ def show_arrow():
     nb_fleche_ligne = 13
     nb_lignes = len(fleche_liste) // nb_fleche_ligne + 1
     current_row = 0
+    firstline = 0
     for i, flechedata in enumerate(fleche_liste):
         fleche, color = flechedata[0], flechedata[1]
         print("color", color)
