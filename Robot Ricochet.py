@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import PhotoImage
 root = tk.Tk()
 
+
 """ 
 affichage mal fait (14 au lieu de 15=)
 done - lors de la génération des boules il ne faut pas qu'elles aillent dans le centre de la map
@@ -41,7 +42,7 @@ tableau = [[[True,False,False,True],[True,False,True,False],[True,False,False,Tr
             [[False,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[True,False,True,False],[False,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[True,False,True,False],[False,False,False,True],[False,False,True,False]],
             [[False,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False],[True,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
             [[False,False,True,True],[False,True,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
-            [[False,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,True,False]],
+            [[False,False,False,True],[True,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,True,False]],
             [[False,True,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False],[True,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[True,False,True,False]],
             [[True,False,False,True],[False,False,False,False],[False,False,False,False],[False,True,True,False],[False,False,False,True],[False,False,False,False],[False,False,False,False],[False,True,False,False],[False,True,False,False],[False,False,False,False],[False,True,True,False],[False,False,False,True],[False,False,False,False],[False,False,True,False],[False,True,False,True],[False,False,True,False]],
             [[False,False,False,True],[False,False,False,False],[False,False,False,False],[True,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False],[False,False,False,False],[False,False,True,False],[False,False,False,True],[True,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
@@ -303,9 +304,11 @@ def win(selected_ball, nx, ny):
     print(goal_act)
     if selected_ball["color"] != goal_act[2][0]:
         print("color check Flase")
+        canvas.create_text(1200, 200, text="BRAVO VOUS AVEZ GAGNE !!", fill = "white")
         return False
     if (nx, ny) != (goal_act[0], goal_act[1]):
         print("pos check False")
+        canvas.create_text(1200, 200, text="BRAVO VOUS AVEZ GAGNE !!", fill = "white")
         return False
     return True
 
@@ -336,7 +339,7 @@ def move_ball(selected_ball, symbole): #inverse
     print("compteur = ", compteur)
     if win(selected_ball, nx, ny):
         #fonction qui affiche la victoire
-        print("GG")
+        canvas.create_text(1200, 200, text="BRAVO VOUS AVEZ GAGNE !!")
         print(compteur)
         reset(tableau)
         return
@@ -380,15 +383,35 @@ root.bind("<Key>", handle_keypress)
 root.bind("<Button-1>", handle_click)
 
 
+
+#HISTORIQUE DEPLACEMENTS
+
+
+
 img = PhotoImage(file='restart.ppm')
 canvas.create_image(352, 352, image=img)
-
+"""
 img1 = PhotoImage(file='yellowbird.ppm')
-canvas.create_image(950, 550, image=img1)
+canvas.create_image(920, 550, image=img1)
+
+img2 = PhotoImage(file='yellowbird.ppm')
+canvas.create_image(1080, 550, image=img2)
+
+img3 = PhotoImage(file='yellowbird.ppm')
+canvas.create_image(1220, 550, image=img3)
+
+img4 = PhotoImage(file='yellowbird.ppm')
+canvas.create_image(1390, 550, image=img4)
+"""
 
 
 
-canvas.create_rectangle(850, 250, 1470, 600, width = 15)
+
+
+
+
+
+canvas.create_rectangle(850, 250, 1470, 600, width = 15, outline = "red")
 tableau_coord = placer_case(tableau)
 quadrillage()
 creer_mur(tableau)
