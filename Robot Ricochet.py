@@ -387,7 +387,8 @@ root.bind("<Button-1>", handle_click)
 
 #HISTORIQUE DEPLACEMENTS
 
-
+img1 = PhotoImage(file='flechebleu_bas.ppm')
+canvas.create_image(499, 352, image=img1)
 
 img = PhotoImage(file='restart.ppm')
 canvas.create_image(352, 352, image=img)
@@ -404,15 +405,19 @@ canvas.create_image(1220, 550, image=img3)
 img4 = PhotoImage(file='yellowbird.ppm')
 canvas.create_image(1390, 550, image=img4)
 """
-
-
-
-
-
-
-
-
 canvas.create_rectangle(850, 250, 1470, 600, width = 15, outline = "red")
+
+
+
+#faire une boucle dans laquelle identifier chaque deplacements de chaque couleurs afin de pouvoir ajouter les images correspondantes les unes à la sutie des autres.
+#A partir d'une coordonnée en x, aggrandir le rectangle en y, et continuer l'affichage des images suivantes à la ligne.
+#0 chaque fois que le pion arrive sur sa case d'arriver afficher le message contenant le nombres de déplacements
+
+
+
+
+
+#fonctions
 tableau_coord = placer_case(tableau)
 quadrillage()
 creer_mur(tableau)
