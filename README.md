@@ -9,7 +9,7 @@ Alex Khau
 Front : -Création du canva (avec implémentation d'images)
         -Création des murs
         -Message gagnant, résultat du score joueur
-        -Historique des déplacements (petit problème sur la première ligne)
+        -Historique des déplacements
 Back :  -Création d'un tableau [False, False, False, False], True si un mur est présent
         -Attribution de coordonées au tableau
         -(Création 4 balles de couleurs differentes qui apparaissent de facon aléatoire dans les cases du tableau. Sélection et gestion de mouvements des balles. Collision des balles avec les murs voire "code gestion AlexKhau.txt") Code complètement refait par Morgan Keita.

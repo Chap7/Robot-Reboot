@@ -27,18 +27,6 @@ Back :  -Debug
 """
 
 
-
-""" 
-affichage mal fait (14 au lieu de 15=)
-done - lors de la génération des boules il ne faut pas qu'elles aillent dans le centre de la map
-done - dépassement du tableau dans certains cas quand on veut déplacer les boules
-done - Même quand les boules sont bien sélectionnés et update. l'info ne passe pas.
-done - x, y, i, j sont inversés, il faut corrigé ça
-done - les boules sont modifiés dans le backend mais le front ne s'update pas
-certains murs sont traversés uniquement de bas en haut et de gauche à droite
-les boules effacés le sont mal. Il faut une autre fonction
-"""
-
 #CREATION CANVAS
 
 #grille
@@ -61,27 +49,7 @@ message_victoire = canvas.create_text(1200, 200, text="")
 message_result = canvas.create_text(1150, 180 ,text = "", font='Arial 16 italic', fill = 'blue')
 
 fleche_liste = []
-fleche_img_liste = {
-    "bd": PhotoImage(file='flechebleu_bas.ppm'),
-    "br": PhotoImage(file='flechebleu_droite.ppm'),
-    "bl": PhotoImage(file='flechebleu_gauche.ppm'),
-    "bu": PhotoImage(file='flechebleu_haut.ppm'),
 
-    "rd": PhotoImage(file='flecherouge_bas.ppm'),
-    "rr": PhotoImage(file='flecherouge_droite.ppm'),
-    "rl": PhotoImage(file='flecherouge_gauche.ppm'),
-    "ru": PhotoImage(file='flecherouge_haut.ppm'),
-
-    "yd": PhotoImage(file='flechejaune_bas.ppm'),
-    "yr": PhotoImage(file='flechejaune_droite.ppm'),
-    "yl": PhotoImage(file='flechejaune_gauche.ppm'),
-    "yu": PhotoImage(file='flechejaune_haut.ppm'),
-    
-    "gd": PhotoImage(file='flechevert_bas.ppm'),
-    "gr": PhotoImage(file='flechevert_droite.ppm'),
-    "gl": PhotoImage(file='flechevert_gauche.ppm'),
-    "gu": PhotoImage(file='flechevert_haut.ppm'),
-}
 
 root.title("Robot Reebot")
 # colonne 10, 6/7 11/12
@@ -194,35 +162,6 @@ def reset(tableau, win):
         pick_goal()
     show_goal()
     compteur = 0
-    
-
-"""
-def create_rectangles(color_rectangle_blue):
-    rectangles = []     
-    n_rectangles = len(color_rectangle_blue)
-    for i in range(n_rectangles):
-        x,y = random.randint(0, NB_LINE-1), random.randint(0, NB_LINE-1)
-        print("CREATED")
-        while (check_ball(x, y, rectangles)):
-            print("CHECKED")
-            x,y = random.randint(0, NB_LINE-1), random.randint(0, NB_LINE-1)
-        rectangles.append({
-            "position": (x,y),
-            "color": color_rectangle_blue [i]
-        })
-        print("postion = ", x, y, " color = ", color_rectangle_blue[i])
-    return rectangles
-
-rectangles = create_rectangles(color_rectangle_blue)
-
-
-def show_rectangles(tableau, rectangles):
-    for rectangle in rectangles :
-        i,j = rectangles["position"]
-        color = rectangles["color"]
-        canvas.create_rectangle((i * cote)+3, (j * cote)+3, (cote * (i + 1))-3, (cote * (j + 1))-3, fill=color, outline = "white")
-"""
-        
 
 #coordonée de chaque cases
 def coord_carre(y, x): #inverse 
@@ -394,6 +333,61 @@ def handle_keypress(event):
         show_arrow()
 
 
+# Selection d'une balle
+def get_clicked_ball(event_x, event_y): #inverse
+    for ball in balls:
+        ball_x, ball_y = ball["position"]
+        ball_x0, ball_y0 = ball_x * cote, ball_y * cote
+        ball_x1, ball_y1 = cote * (ball_x + 1), cote * (ball_y + 1)
+        if (event_x > ball_x0 and event_x < ball_x1) and (event_y > ball_y0 and event_y < ball_y1):
+            print("ball choisit")
+            return ball
+    print("None")
+    return None
+
+def handle_reset(event_x, event_y):
+    if (event_x > 6*cote and event_x < 9*cote) and (event_y > 6*cote and event_y < 9*cote):
+        reset(tableau, False)
+
+# Gestion des selections
+def handle_click(event): #ok
+    global selected_ball
+    print(event)
+    event_x, event_y = event.x, event.y
+    selected_ball = get_clicked_ball(event_x, event_y)
+    handle_reset(event_x, event_y)
+    print(selected_ball)
+
+# Bind une touche event pour handle_keypress()
+root.bind("<Key>", handle_keypress)
+root.bind("<Button-1>", handle_click)
+
+
+#Historique de déplacement
+
+canvas.create_rectangle(850, 250, 1500, 1000, width = 15, outline = "red")
+
+fleche_img_liste = {
+    "bd": PhotoImage(file='flechebleu_bas.ppm'),
+    "br": PhotoImage(file='flechebleu_droite.ppm'),
+    "bl": PhotoImage(file='flechebleu_gauche.ppm'),
+    "bu": PhotoImage(file='flechebleu_haut.ppm'),
+
+    "rd": PhotoImage(file='flecherouge_bas.ppm'),
+    "rr": PhotoImage(file='flecherouge_droite.ppm'),
+    "rl": PhotoImage(file='flecherouge_gauche.ppm'),
+    "ru": PhotoImage(file='flecherouge_haut.ppm'),
+
+    "yd": PhotoImage(file='flechejaune_bas.ppm'),
+    "yr": PhotoImage(file='flechejaune_droite.ppm'),
+    "yl": PhotoImage(file='flechejaune_gauche.ppm'),
+    "yu": PhotoImage(file='flechejaune_haut.ppm'),
+    
+    "gd": PhotoImage(file='flechevert_bas.ppm'),
+    "gr": PhotoImage(file='flechevert_droite.ppm'),
+    "gl": PhotoImage(file='flechevert_gauche.ppm'),
+    "gu": PhotoImage(file='flechevert_haut.ppm'),
+}
 def show_arrow():
     x = 880
     y = 290
@@ -486,17 +480,6 @@ root.bind("<Button-1>", handle_click)
 img = PhotoImage(file='restart.ppm')
 canvas.create_image(352, 352, image=img)
 
-canvas.create_rectangle(850, 250, 1500, 1000, width = 15, outline = "red")
-
-
-
-#faire une boucle dans laquelle identifier chaque deplacements de chaque couleurs afin de pouvoir ajouter les images correspondantes les unes à la suite des autres.
-#A partir d'une coordonnée en x, aggrandir le rectangle en y, et continuer l'affichage des images suivantes en revenant à la ligne.
-
-
-#Fonction des fleches
-
-
 #fonctions
 tableau_coord = placer_case(tableau)
 quadrillage()
@@ -505,6 +488,5 @@ show_balls(tableau, balls)
 pick_goal()
 show_goal()
 
-#show_rectangles(tableau, rectangles)
 canvas.pack()
 root.mainloop()
