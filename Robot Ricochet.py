@@ -10,14 +10,10 @@ Alex Khau
 Front : -Création du canva (avec implémentation d'images)
         -Création des murs
         -Message gagnant, résultat du score joueur
-        -Historique de déplacement (pas fini)
+        -Historique des déplacements
 
 Back :  -Création d'un tableau [False, False, False, False], True si un mur est présent
-        -Attribution de coordonées au tabbleau
-        -Création 4 balles de couleurs differentes qui apparaissent de facon aléatoire dans les cases du tableau
-        -Sélection et gestion de mouvements des balles
-        -collision des balles avec les murs
-
+        -Attribution de coordonées au tableau
 
 
 Morgan Keita 
@@ -482,8 +478,6 @@ root.bind("<Button-1>", handle_click)
 
 #HISTORIQUE DEPLACEMENTS
 
-img1 = PhotoImage(file='flechebleu_haut.ppm')
-canvas.create_image(880, 290, image=img1)
 
 img = PhotoImage(file='restart.ppm')
 canvas.create_image(352, 352, image=img)
