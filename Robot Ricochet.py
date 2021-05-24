@@ -18,8 +18,8 @@ les boules effacés le sont mal. Il faut une autre fonction
 #CREATION CANVAS
 
 #grille
-HAUTEUR = 780
-LARGEUR = 780
+HAUTEUR = 700
+LARGEUR = 700
 #canva
 HAUTEUR1 = 1500
 LARGEUR1 = 1500
