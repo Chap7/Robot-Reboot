@@ -49,27 +49,7 @@ message_victoire = canvas.create_text(1200, 200, text="")
 message_result = canvas.create_text(1150, 180 ,text = "", font='Arial 16 italic', fill = 'blue')
 
 fleche_liste = []
-fleche_img_liste = {
-    "bd": PhotoImage(file='flechebleu_bas.ppm'),
-    "br": PhotoImage(file='flechebleu_droite.ppm'),
-    "bl": PhotoImage(file='flechebleu_gauche.ppm'),
-    "bu": PhotoImage(file='flechebleu_haut.ppm'),
 
-    "rd": PhotoImage(file='flecherouge_bas.ppm'),
-    "rr": PhotoImage(file='flecherouge_droite.ppm'),
-    "rl": PhotoImage(file='flecherouge_gauche.ppm'),
-    "ru": PhotoImage(file='flecherouge_haut.ppm'),
-
-    "yd": PhotoImage(file='flechejaune_bas.ppm'),
-    "yr": PhotoImage(file='flechejaune_droite.ppm'),
-    "yl": PhotoImage(file='flechejaune_gauche.ppm'),
-    "yu": PhotoImage(file='flechejaune_haut.ppm'),
-    
-    "gd": PhotoImage(file='flechevert_bas.ppm'),
-    "gr": PhotoImage(file='flechevert_droite.ppm'),
-    "gl": PhotoImage(file='flechevert_gauche.ppm'),
-    "gu": PhotoImage(file='flechevert_haut.ppm'),
-}
 
 root.title("Robot Reebot")
 # colonne 10, 6/7 11/12
