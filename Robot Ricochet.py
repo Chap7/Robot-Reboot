@@ -278,6 +278,7 @@ def win(selected_ball, nx, ny):
     if (nx, ny) != (goal_act[0], goal_act[1]):
         print("pos check False")
         canvas.delete(message_victoire)
+        canvas.delete(message_result)
         return False
     print(compteur)
     return True
