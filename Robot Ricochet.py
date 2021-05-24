@@ -325,6 +325,8 @@ def move_down(ball_y, ball_x): #inverse
     return y, x
 
 def win(selected_ball, nx, ny):
+    global message_victoire
+    global message_result
     print("WIN")
     print(selected_ball["color"])
     print(selected_ball["position"])
