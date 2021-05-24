@@ -358,6 +358,7 @@ def move_ball(selected_ball, symbole): #inverse
     if win(selected_ball, nx, ny):
         #fonction qui affiche la victoire
         message_victoire = canvas.create_text(1200, 200, text="BRAVO VOUS AVEZ GAGNE !!")
+        #canvas.create_rectangle(1000, 150, 1200, 182,  fill="white", outline = "white")
         message_result = canvas.create_text(1150, 180 ,text = compteur, font='Arial 16 italic', fill = 'blue')
         print(compteur)
         reset(tableau, True)
