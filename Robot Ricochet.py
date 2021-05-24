@@ -396,17 +396,19 @@ root.bind("<Button-1>", handle_click)
 
 #HISTORIQUE DEPLACEMENTS
 
+img1 = PhotoImage(file='flechebleu_haut.ppm')
+canvas.create_image(880, 290, image=img1)
+
+img = PhotoImage(file='restart.ppm')
+canvas.create_image(352, 352, image=img)
+
+canvas.create_rectangle(850, 250, 1470, 600, width = 15, outline = "red")
+
 
 
 #faire une boucle dans laquelle identifier chaque deplacements de chaque couleurs afin de pouvoir ajouter les images correspondantes les unes à la sutie des autres.
 #A partir d'une coordonnée en x, aggrandir le rectangle en y, et continuer l'affichage des images suivantes à la ligne.
 
-
-
-def coord_carre(y, x): #inverse 
-    x0,y0 = cote*x, cote*y
-    x1,y1 = cote*(x+1), cote*(y+1)
-    return [[x0,y0],[x1,y1]]
 
 #Attribuer chaque elements du tableau à chaque case du quadrillage avec des coordonées
 
