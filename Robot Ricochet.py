@@ -305,7 +305,7 @@ def win(selected_ball, nx, ny):
     if selected_ball["color"] != goal_act[2][0]:
         print("color check Flase")
         canvas.delete(message_victoire)
-        
+        canvas.delete(message_result)
         return False
     if (nx, ny) != (goal_act[0], goal_act[1]):
         print("pos check False")
@@ -317,7 +317,9 @@ def move_ball(selected_ball, symbole): #inverse
     global balls
     global compteur
     global message_victoire
+    global message_result
     compteur += 1
+    
     x,y = selected_ball["position"]
     # On definit la direction
     if symbole == "Right":
@@ -337,13 +339,19 @@ def move_ball(selected_ball, symbole): #inverse
     #print("balls[selected_ball_index] = ", balls[selected_ball_index])
     erase_balls(tableau, x, y)
     show_balls(tableau, balls)
-    print("compteur = ", compteur)
+    
     if win(selected_ball, nx, ny):
         #fonction qui affiche la victoire
         message_victoire = canvas.create_text(1200, 200, text="BRAVO VOUS AVEZ GAGNE !!")
+        message_result= canvas.create_text(1150, 180 ,text = compteur, font='Arial 16 italic', fill = 'blue')
         print(compteur)
         reset(tableau)
-        return
+        return 
+
+
+
+
+
 
 # Gestion des mouvements
 def handle_keypress(event):
@@ -353,6 +361,7 @@ def handle_keypress(event):
     if selected_ball != None:
         print("when keypress:", selected_ball)
         move_ball(selected_ball, event.keysym)
+        
 
 # Selection d'une balle
 def get_clicked_ball(event_x, event_y): #inverse
@@ -387,8 +396,8 @@ root.bind("<Button-1>", handle_click)
 
 #HISTORIQUE DEPLACEMENTS
 
-img1 = PhotoImage(file='flechebleu_bas.ppm')
-canvas.create_image(499, 352, image=img1)
+img1 = PhotoImage(file='flechebleu_haut.ppm')
+canvas.create_image(880, 290, image=img1)
 
 img = PhotoImage(file='restart.ppm')
 canvas.create_image(352, 352, image=img)
