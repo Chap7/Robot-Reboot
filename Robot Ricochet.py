@@ -3,6 +3,35 @@ import tkinter as tk
 from tkinter import PhotoImage
 root = tk.Tk()
 
+"""
+    2 PARTICIPANTS :
+    
+Alex Khau
+Front : -Création du canva (avec implémentation d'images)
+        -Création des murs
+        -Message gagnant, résultat du score joueur
+        -Historique de déplacement (pas fini)
+
+Back :  -Création d'un tableau [False, False, False, False], True si un mur est présent
+        -Attribution de coordonées au tabbleau
+        -Création 4 balles de couleurs differentes qui apparaissent de facon aléatoire dans les cases du tableau
+        -Sélection et gestion de mouvements des balles
+        -collision des balles avec les murs
+
+
+
+Morgan Keita 
+Back :  -
+"""
+
+
+
+
+
+
+
+
+
 
 """ 
 affichage mal fait (14 au lieu de 15=)
@@ -142,9 +171,6 @@ def reset(tableau):
     compteur = 0
     
 
-
-        
-
 """
 def create_rectangles(color_rectangle_blue):
     rectangles = []     
@@ -247,6 +273,7 @@ def move_to_obstacle(ball_i, ball_j, symbole, direction):
     return loop_i, loop_j
 """
 
+
 #     walls_dir = {"Right": 2, "Left": 3, "Up": 0, "Down": 1}
 
 def move_right(ball_y, ball_x): # inverse
@@ -318,6 +345,7 @@ def move_ball(selected_ball, symbole): #inverse
     global compteur
     global message_victoire
     global message_result
+
     compteur += 1
     
     x,y = selected_ball["position"]
@@ -349,10 +377,6 @@ def move_ball(selected_ball, symbole): #inverse
         return 
 
 
-
-
-
-
 # Gestion des mouvements
 def handle_keypress(event):
     global selected_ball
@@ -361,7 +385,8 @@ def handle_keypress(event):
     if selected_ball != None:
         print("when keypress:", selected_ball)
         move_ball(selected_ball, event.keysym)
-        
+
+
 
 # Selection d'une balle
 def get_clicked_ball(event_x, event_y): #inverse
@@ -406,21 +431,11 @@ canvas.create_rectangle(850, 250, 1470, 600, width = 15, outline = "red")
 
 
 
-#faire une boucle dans laquelle identifier chaque deplacements de chaque couleurs afin de pouvoir ajouter les images correspondantes les unes à la sutie des autres.
-#A partir d'une coordonnée en x, aggrandir le rectangle en y, et continuer l'affichage des images suivantes à la ligne.
+#faire une boucle dans laquelle identifier chaque deplacements de chaque couleurs afin de pouvoir ajouter les images correspondantes les unes à la suite des autres.
+#A partir d'une coordonnée en x, aggrandir le rectangle en y, et continuer l'affichage des images suivantes en revenant à la ligne.
 
 
-#Attribuer chaque elements du tableau à chaque case du quadrillage avec des coordonées
-
-def placer_case(tableau): #inverse
-    for y in range(len(tableau)):
-        for x in range(len(tableau[y])):
-            tableau[y][x].append(coord_carre(y,x))
-    return tableau
-
-
-
-
+#Fonction des fleches
 
 
 #fonctions
@@ -430,6 +445,7 @@ creer_mur(tableau)
 show_balls(tableau, balls)
 pick_goal()
 show_goal()
+
 #show_rectangles(tableau, rectangles)
 canvas.pack()
 root.mainloop()
