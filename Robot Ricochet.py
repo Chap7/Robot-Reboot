@@ -304,18 +304,19 @@ def win(selected_ball, nx, ny):
     print(goal_act)
     if selected_ball["color"] != goal_act[2][0]:
         print("color check Flase")
-        canvas.create_text(1200, 200, text="BRAVO VOUS AVEZ GAGNE !!", fill = "white")
+        canvas.delete(message_victoire)
+        
         return False
     if (nx, ny) != (goal_act[0], goal_act[1]):
         print("pos check False")
-        canvas.create_text(1200, 200, text="BRAVO VOUS AVEZ GAGNE !!", fill = "white")
+        canvas.delete(message_victoire)
         return False
     return True
 
 def move_ball(selected_ball, symbole): #inverse
     global balls
     global compteur
-
+    global message_victoire
     compteur += 1
     x,y = selected_ball["position"]
     # On definit la direction
@@ -339,7 +340,7 @@ def move_ball(selected_ball, symbole): #inverse
     print("compteur = ", compteur)
     if win(selected_ball, nx, ny):
         #fonction qui affiche la victoire
-        canvas.create_text(1200, 200, text="BRAVO VOUS AVEZ GAGNE !!")
+        message_victoire = canvas.create_text(1200, 200, text="BRAVO VOUS AVEZ GAGNE !!")
         print(compteur)
         reset(tableau)
         return
