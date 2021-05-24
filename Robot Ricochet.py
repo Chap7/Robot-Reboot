@@ -105,7 +105,7 @@ tableau = [[[True,False,False,True],[True,False,True,False],[True,False,False,Tr
             [[False,True,False,True],[False,True,False,False],[True,True,False,False],[False,True,True,False],[False,True,False,True],[False,True,False,False],[False,True,False,False],[False,True,False,False],[False,True,False,False],[False,True,True,False],[False,True,False,True],[False,True,False,False],[False,True,False,False],[False,True,False,False],[False,True,False,False],[False,True,True,False]]]
 
 def check_ball(x, y, balls):
-    if x > 6 and x < 9 and y > 6 and y < 9:
+    if x > 7 and x < 9 and y > 7 and y < 9:
         return True
     for ball in balls:
         if (x, y) == ball["position"]:
@@ -459,7 +459,7 @@ def get_clicked_ball(event_x, event_y): #inverse
     return None
 
 def handle_reset(event_x, event_y):
-    if (event_x > 6*cote and event_x < 9*cote) and (event_y > 6*cote and event_y < 9*cote):
+    if (event_x > 7*cote and event_x < 9*cote) and (event_y > 7*cote and event_y < 9*cote):
         reset(tableau, False)
 
 # Gestion des selections
