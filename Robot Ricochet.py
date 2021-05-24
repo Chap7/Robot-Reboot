@@ -484,7 +484,7 @@ root.bind("<Button-1>", handle_click)
 img = PhotoImage(file='restart.ppm')
 canvas.create_image(352, 352, image=img)
 
-canvas.create_rectangle(850, 250, 1470, 600, width = 15, outline = "red")
+canvas.create_rectangle(850, 250, 1500, 1000, width = 15, outline = "red")
 
 
 
