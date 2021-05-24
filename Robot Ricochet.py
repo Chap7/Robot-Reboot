@@ -51,7 +51,7 @@ tableau = [[[True,False,False,True],[True,False,True,False],[True,False,False,Tr
             [[False,False,False,True],[True,False,True,False],[False,False,False,True],[False,False,False,False],[True,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False],[True,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
             [[False,True,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,False,False],[False,False,False,False],[False,False,True,False],[False,True,False,True],[False,False,False,False],[False,True,True,False]],
             [[True,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[True,False,True,False],[False,False,False,True],[False,True,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[True,False,True,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
-            [[False,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False],[True,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,True,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
+            [[False,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False],[True,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,True,True,False],[False,False,False,True],[False,False,False,False],[False,False,True,False]],
             [[False,False,False,True],[False,False,False,False],[False,True,True,False],[False,False,False,True],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,False,False],[False,False,True,False]],
             [[False,True,False,True],[False,True,False,False],[True,True,False,False],[False,True,True,False],[False,True,False,True],[False,True,False,False],[False,True,False,False],[False,True,False,False],[False,True,False,False],[False,True,True,False],[False,True,False,True],[False,True,False,False],[False,True,False,False],[False,True,False,False],[False,True,False,False],[False,True,True,False]]]
 
@@ -343,7 +343,7 @@ def move_ball(selected_ball, symbole): #inverse
     if win(selected_ball, nx, ny):
         #fonction qui affiche la victoire
         message_victoire = canvas.create_text(1200, 200, text="BRAVO VOUS AVEZ GAGNE !!")
-        message_result= canvas.create_text(1150, 180 ,text = compteur, font='Arial 16 italic', fill = 'blue')
+        message_result = canvas.create_text(1150, 180 ,text = compteur, font='Arial 16 italic', fill = 'blue')
         print(compteur)
         reset(tableau)
         return 
@@ -396,31 +396,26 @@ root.bind("<Button-1>", handle_click)
 
 #HISTORIQUE DEPLACEMENTS
 
-img1 = PhotoImage(file='flechebleu_haut.ppm')
-canvas.create_image(880, 290, image=img1)
-
-img = PhotoImage(file='restart.ppm')
-canvas.create_image(352, 352, image=img)
-"""
-img1 = PhotoImage(file='yellowbird.ppm')
-canvas.create_image(920, 550, image=img1)
-
-img2 = PhotoImage(file='yellowbird.ppm')
-canvas.create_image(1080, 550, image=img2)
-
-img3 = PhotoImage(file='yellowbird.ppm')
-canvas.create_image(1220, 550, image=img3)
-
-img4 = PhotoImage(file='yellowbird.ppm')
-canvas.create_image(1390, 550, image=img4)
-"""
-canvas.create_rectangle(850, 250, 1470, 600, width = 15, outline = "red")
-
 
 
 #faire une boucle dans laquelle identifier chaque deplacements de chaque couleurs afin de pouvoir ajouter les images correspondantes les unes à la sutie des autres.
 #A partir d'une coordonnée en x, aggrandir le rectangle en y, et continuer l'affichage des images suivantes à la ligne.
-#0 chaque fois que le pion arrive sur sa case d'arriver afficher le message contenant le nombres de déplacements
+
+
+
+def coord_carre(y, x): #inverse 
+    x0,y0 = cote*x, cote*y
+    x1,y1 = cote*(x+1), cote*(y+1)
+    return [[x0,y0],[x1,y1]]
+
+#Attribuer chaque elements du tableau à chaque case du quadrillage avec des coordonées
+
+def placer_case(tableau): #inverse
+    for y in range(len(tableau)):
+        for x in range(len(tableau[y])):
+            tableau[y][x].append(coord_carre(y,x))
+    return tableau
+
 
 
 
