@@ -32,13 +32,6 @@ Back :  -Debug
 
 
 
-
-
-
-
-
-
-
 """ 
 affichage mal fait (14 au lieu de 15=)
 done - lors de la génération des boules il ne faut pas qu'elles aillent dans le centre de la map
@@ -68,6 +61,31 @@ goal_pos = [(1, 3), (4, 1), (5,5),(9,2),(13,1),(3,6),(4,9),(1,10),(2,14),(4,12),
 goal_act = [-1, -1, ""]
 canvas = tk.Canvas(bg = "white", width = LARGEUR1, height = HAUTEUR1)
 
+message_victoire = canvas.create_text(1200, 200, text="")
+message_result = canvas.create_text(1150, 180 ,text = "", font='Arial 16 italic', fill = 'blue')
+
+fleche_liste = []
+fleche_img_liste = {
+    "bd": PhotoImage(file='flechebleu_bas.ppm'),
+    "br": PhotoImage(file='flechebleu_droite.ppm'),
+    "bl": PhotoImage(file='flechebleu_gauche.ppm'),
+    "bu": PhotoImage(file='flechebleu_haut.ppm'),
+
+    "rd": PhotoImage(file='flecherouge_bas.ppm'),
+    "rr": PhotoImage(file='flecherouge_droite.ppm'),
+    "rl": PhotoImage(file='flecherouge_gauche.ppm'),
+    "ru": PhotoImage(file='flecherouge_haut.ppm'),
+
+    "yd": PhotoImage(file='flechejaune_bas.ppm'),
+    "yr": PhotoImage(file='flechejaune_droite.ppm'),
+    "yl": PhotoImage(file='flechejaune_gauche.ppm'),
+    "yu": PhotoImage(file='flechejaune_haut.ppm'),
+    
+    "gd": PhotoImage(file='flechevert_bas.ppm'),
+    "gr": PhotoImage(file='flechevert_droite.ppm'),
+    "gl": PhotoImage(file='flechevert_gauche.ppm'),
+    "gu": PhotoImage(file='flechevert_haut.ppm'),
+}
 
 root.title("Robot Reebot")
 # colonne 10, 6/7 11/12
@@ -367,12 +385,68 @@ def move_ball(selected_ball, symbole): #inverse
 # Gestion des mouvements
 def handle_keypress(event):
     global selected_ball
+    global fleche_liste
     print("handle_keypress: ", selected_ball)
     print(event, selected_ball)
     if selected_ball != None:
         print("when keypress:", selected_ball)
         move_ball(selected_ball, event.keysym)
+        fleche_liste.append([event.keysym, selected_ball["color"]])
+        show_arrow()
 
+
+def show_arrow():
+    x = 880
+    y = 290
+    x_decalage = 40
+    y_decalage = 60
+    nb_fleche_ligne = 13
+    nb_lignes = len(fleche_liste) // nb_fleche_ligne + 1
+    current_row = 0
+    for i, flechedata in enumerate(fleche_liste):
+        fleche, color = flechedata[0], flechedata[1]
+        print("color", color)
+        if color == "red" and fleche == "Down" : 
+            canvas.create_image(x, y, image=fleche_img_liste["rd"])
+        elif color == "red" and fleche == "Up" : 
+            canvas.create_image(x, y, image=fleche_img_liste["ru"])
+        elif color == "red" and fleche == "Left" : 
+            canvas.create_image(x, y, image=fleche_img_liste["rl"])
+        elif color == "red" and fleche == "Right" : 
+            canvas.create_image(x, y, image=fleche_img_liste["rr"])
+
+        elif color == "blue" and fleche == "Down" : 
+            canvas.create_image(x, y, image=fleche_img_liste["bd"])
+        elif color == "blue" and fleche == "Up" : 
+            canvas.create_image(x, y, image=fleche_img_liste["bu"])
+        elif color == "blue" and fleche == "Left" : 
+            canvas.create_image(x, y, image=fleche_img_liste["bl"])
+        elif color == "blue" and fleche == "Right" : 
+            canvas.create_image(x, y, image=fleche_img_liste["br"])
+        
+        elif color == "green" and fleche == "Down" : 
+            canvas.create_image(x, y, image=fleche_img_liste["gd"])
+        elif color == "green" and fleche == "Up" : 
+            canvas.create_image(x, y, image=fleche_img_liste["gu"])
+        elif color == "green" and fleche == "Left" : 
+            canvas.create_image(x, y, image=fleche_img_liste["gl"])
+        elif color == "green" and fleche == "Right" : 
+            canvas.create_image(x, y, image=fleche_img_liste["gr"])
+        
+        elif color == "yellow" and fleche == "Down" : 
+            canvas.create_image(x, y, image=fleche_img_liste["yd"])
+        elif color == "yellow" and fleche == "Up" : 
+            canvas.create_image(x, y, image=fleche_img_liste["yu"])
+        elif color == "yellow" and fleche == "Left" : 
+            canvas.create_image(x, y, image=fleche_img_liste["yl"])
+        elif color == "yellow" and fleche == "Right" : 
+            canvas.create_image(x, y, image=fleche_img_liste["yr"])
+        x += 45
+        if i % 13 == 0 and i > 0:
+            current_row += 1
+            x = 880
+        y = 290 + 45 * current_row
+        print("currenrt row", current_row)
 
 
 # Selection d'une balle
