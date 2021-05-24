@@ -118,7 +118,7 @@ def create_balls(colors):
     n_balls = len(colors)
     for i in range(n_balls):
         if (colors[i] == "blue"):
-            x, y = 10, 12
+            x, y = 9, 10
         if (colors[i] == "red"):
             x, y = 11, 2
         if (colors[i] == "yellow"):
@@ -441,7 +441,7 @@ def show_arrow():
         elif color == "yellow" and fleche == "Right" : 
             canvas.create_image(x, y, image=fleche_img_liste["yr"])
         x += 45
-        if i % 13 == 0 and i > 0:
+        if i % 8 == 0 and i > 0:
             current_row += 1
             x = 880
         y = 290 + 45 * current_row
